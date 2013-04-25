@@ -16,7 +16,7 @@ class Rental(object):
         return self.get_movie().get_charge(self.get_days_rented())
 
     def get_frequent_renter_points(self):
-        return self._movie.get_frequent_renter_points(self.get_days_rented())
+        return self.get_movie().get_frequent_renter_points(self.get_days_rented())
 
 
 
