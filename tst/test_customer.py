@@ -7,55 +7,51 @@ from rental import Rental
 class TestCustomer(unittest.TestCase):
 
     def setUp(self):
-        self.c = Customer('David')
+        self._customer = Customer('Sallie')
 
     def test_add_rental(self):
-        customer2 = Customer('Sallie')
-        movie1 = Movie('Gone with the Wind', Movie.REGULAR)
-        rental1 = Rental(movie1, 3) # 3 day rental
-        customer2.add_rental(rental1)
+        movie = Movie('Gone with the Wind', Movie.REGULAR)
+        rental = Rental(movie, 3) # 3 day rental
+        self._customer.add_rental(rental)
+        # not possible to verify because no public interface for that
 
     def test_get_name(self):
-        c = Customer('David')
-        self.assertEquals('David', c.get_name())
+        self.assertEquals('Sallie', self._customer.get_name())
 
     def test_statement_for_regular_movie(self):
-        customer2 = Customer('Sallie')
-        movie1 = Movie('Gone with the Wind', Movie.REGULAR)
-        rental1 = Rental(movie1, 3) # 3 day rental
-        customer2.add_rental(rental1)
+        movie = Movie('Gone with the Wind', Movie.REGULAR)
+        rental = Rental(movie, 3) # 3 day rental
+        self._customer.add_rental(rental)
         expected = """Rental Record for Sallie
 \tGone with the Wind\t3.5
 Amount owed is 3.5
 You earned 1 frequent renter points"""
-        statement = customer2.statement()
+        statement = self._customer.statement()
         self.assertEquals(expected, statement)
     
     def test_statement_for_new_release_movie(self):
-        customer2 = Customer('Sallie')
-        movie1 = Movie('Star Wars', Movie.NEW_RELEASE)
-        rental1 = Rental(movie1, 3) # 3 day rental
-        customer2.add_rental(rental1)
+        movie = Movie('Star Wars', Movie.NEW_RELEASE)
+        rental = Rental(movie, 3) # 3 day rental
+        self._customer.add_rental(rental)
         expected = """Rental Record for Sallie
 \tStar Wars\t9.0
 Amount owed is 9.0
 You earned 2 frequent renter points"""
-        statement = customer2.statement()
+        statement = self._customer.statement()
         self.assertEquals(expected, statement)
     
     def test_statement_for_childrens_movie(self):
-        customer2 = Customer('Sallie')
-        movie1 = Movie('Madagascar', Movie.CHILDRENS)
-        rental1 = Rental(movie1, 3) # 3 day rental
-        customer2.add_rental(rental1)
+        movie = Movie('Madagascar', Movie.CHILDRENS)
+        rental = Rental(movie, 3) # 3 day rental
+        self._customer.add_rental(rental)
         expected = """Rental Record for Sallie
 \tMadagascar\t1.5
 Amount owed is 1.5
 You earned 1 frequent renter points"""
-        statement = customer2.statement()
+        statement = self._customer.statement()
         self.assertEquals(expected, statement)
     
-    def test_statement_for_many_movies(self):
+    def test_statement_for_many_movies_and_rentals(self):
         customer1 = Customer('David')
         movie1 = Movie('Madagascar', Movie.CHILDRENS)
         rental1 = Rental(movie1, 6) # 6 day rental
