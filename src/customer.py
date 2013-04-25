@@ -8,6 +8,9 @@ class Customer(object):
 
     def add_rental(self, arg):
         self._rentals.append(arg)
+        
+    def get_rentals(self):
+        return self._rentals
 
     def get_name(self):
         return self._name
@@ -17,7 +20,6 @@ class Customer(object):
         for rental in self._rentals:
             # show figures for this rental
             result += '\t' + rental.get_movie().get_title() + '\t' + '{0:.1f}'.format(rental.get_charge()) + '\n'
-
         # add footer lines
         result += 'Amount owed is ' + '{0:.1f}'.format(self._get_total_charge()) + '\n'
         result += 'You earned ' + str(self._get_total_frequent_renter_points()) + ' frequent renter points'
