@@ -8,13 +8,15 @@ class Movie(object):
 
     def __init__(self, title, price_code):
         self._title = title
-        self._price_code = price_code
+        self.set_price_code(price_code)
 
     def get_price_code(self):
-        return self._price_code
+        return self._price.get_price_code()
 
     def set_price_code(self, arg):
-        self._price_code = arg
+        self._price = {Movie.REGULAR: RegularPrice,
+         Movie.CHILDRENS: ChildrensPrice,
+         Movie.NEW_RELEASE: NewReleasePrice}[arg]()
     
     def get_title(self):
         return self._title
@@ -32,3 +34,24 @@ class Movie(object):
             if days_rented > 3:
                 charge += (days_rented - 3) * 1.5
         return charge
+
+class Price(object):
+    
+    def get_price_code(self):
+        raise Exception('Price is an abstract class')
+    
+class RegularPrice(Price):
+    
+    def get_price_code(self):
+        return Movie.REGULAR
+
+class NewReleasePrice(Price):
+    
+    def get_price_code(self):
+        return Movie.NEW_RELEASE
+
+class ChildrensPrice(Price):
+
+    def get_price_code(self):
+        return Movie.CHILDRENS
+
