@@ -1,4 +1,4 @@
-from movie import Movie
+
 
 class Customer(object):
     
@@ -31,7 +31,4 @@ class Customer(object):
         return result
 
     def _get_frequent_renter_points(self, rental):
-        frequent_renter_points = 1
-        if rental.get_movie().get_price_code() == Movie.NEW_RELEASE and rental.get_days_rented() > 1:
-            frequent_renter_points += 1
-        return frequent_renter_points
+        return rental.get_frequent_renter_points()

@@ -26,6 +26,12 @@ class Rental(object):
                 amount += (self.get_days_rented() - 3) * 1.5
         return amount
 
+    def get_frequent_renter_points(self):
+        frequent_renter_points = 1
+        if self.get_movie().get_price_code() == Movie.NEW_RELEASE and self.get_days_rented() > 1:
+            frequent_renter_points += 1
+        return frequent_renter_points
+
 
 
 
